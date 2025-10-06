@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Energia Kalkulagailua - Misio Robotikoa</title>
+<style>
+  body {
+    background: radial-gradient(circle at 20% 30%, #0a0f24, #000);
+    color: #e0e6ff;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    padding: 40px;
+  }
+  h1 {
+    color: #58a6ff;
+    text-shadow: 0 0 10px #58a6ff;
+  }
+  .form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    background: rgba(30, 45, 80, 0.4);
+    border: 1px solid #3a5ba0;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 15px #2d4fa3;
+  }
+  label {
+    display: block;
+    margin: 10px 0 5px;
+  }
+  input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+    background-color: #11183b;
+    color: #e0e6ff;
+    font-size: 1rem;
+  }
+  button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 0 10px #0d6efd;
+    transition: 0.2s;
+  }
+  button:hover {
+    background-color: #1a80ff;
+  }
+  .result {
+    margin-top: 25px;
+    font-size: 1.2rem;
+    color: #7df9ff;
+    text-shadow: 0 0 8px #7df9ff;
+  }
+</style>
+</head>
+<body>
+
+  <h1>🤖 Misio Robotikoaren Energia Kalkulagailua 🚀</h1>
+
+  <div class="form-container">
+    <label for="egunak">Misioaren egun kopurua</label>
+    <input type="number" id="egunak" placeholder="adib. 10">
+
+    <label for="kontsumoa">Robot bakoitzaren eguneko kontsumoa (energia unitateak)</label>
+    <input type="number" id="kontsumoa" placeholder="adib. 5">
+
+    <label for="robotak">Robot kopurua</label>
+    <input type="number" id="robotak" placeholder="adib. 3">
+
+    <label for="energia">Energia kopurua osoa</label>
+    <input type="number" id="energia" placeholder="adib. 150">
+
+    <button onclick="kalkulatu()">Kalkulatu</button>
+
+    <div class="result" id="emaitza"></div>
+  </div>
+
+<script>
+function kalkulatu() {
+  const egunak = parseFloat(document.getElementById('egunak').value);
+  const kontsumoa = parseFloat(document.getElementById('kontsumoa').value);
+  const robotak = parseFloat(document.getElementById('robotak').value);
+  const energia = parseFloat(document.getElementById('energia').value);
+  const emaitza = document.getElementById('emaitza');
+
+  let kalkulatutakoBalioa = "";
+  let testua = "";
+
+  if (!energia && egunak && kontsumoa && robotak) {
+    kalkulatutakoBalioa = egunak * kontsumoa * robotak;
+    testua = `Energia kopurua osoa: ${kalkulatutakoBalioa.toFixed(2)}`;
+  } else if (!egunak && energia && kontsumoa && robotak) {
+    kalkulatutakoBalioa = energia / (kontsumoa * robotak);
+    testua = `Misioaren egun kopurua: ${kalkulatutakoBalioa.toFixed(2)}`;
+  } else if (!kontsumoa && energia && egunak && robotak) {
+    kalkulatutakoBalioa = energia / (egunak * robotak);
+    testua = `Robot bakoitzaren eguneko kontsumoa: ${kalkulatutakoBalioa.toFixed(2)}`;
+  } else if (!robotak && energia && egunak && kontsumoa) {
+    kalkulatutakoBalioa = energia / (egunak * kontsumoa);
+    testua = `Robot kopurua: ${kalkulatutakoBalioa.toFixed(2)}`;
+  } else {
+    testua = "📡 Mesedez, utzi eremu bat hutsik eta bete beste hirurak kalkulatzeko.";
+  }
+
+  emaitza.textContent = testua;
+}
+</script>
+
+</body>
+</html>
